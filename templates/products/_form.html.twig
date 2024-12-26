@@ -1,0 +1,5 @@
+{% form_theme form 'tailwind_2_layout.html.twig' %}
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="mt-2 btn rounded-md hover:bg-blue-500 bg-blue-600 text-white p-2">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

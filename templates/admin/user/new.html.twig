@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel Utilisateur{% endblock %}
+
+{% block body %}
+    <h1 class="flex justify-center">Créer un nouvel utilisateur</h1>
+    <div class="flex justify-center mt-8">
+        {{ include('admin/user/_form.html.twig') }}
+    </div>
+
+    <a href="{{ path('admin_user_index') }}">Retour</a>
+{% endblock %}

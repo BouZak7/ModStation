@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <h1 class="flex justify-center mb-8">Liste d'utilisateurs</h1>
+    <a class="ml-32 font-semibold hover:font-bold" href="{{ path('app_admin') }}" >Retour</a>
+
+    <table class="w-full text-sm text-left rtl:text-right text-gray-900 m-8">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50"
+            <tr>
+                <th scope="col" class="px-6 py-3">Id</th>
+                <th scope="col" class="px-6 py-3">Email</th>
+                <th scope="col" class="px-6 py-3">Roles</th>
+                <th scope="col" class="px-6 py-3">Password</th>
+                <th scope="col" class="px-6 py-3">IsVerified</th>
+                <th scope="col" class="px-6 py-3">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr class="odd:bg-white even:bg-gray-50 border-b">
+                <td class="px-6 py-4">{{ user.id }}</td>
+                <td class="px-6 py-4">{{ user.email }}</td>
+                <td class="px-6 py-4">{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td class="px-6 py-4">{{ user.password }}</td>
+                <td class="px-6 py-4">{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                <td class="px-6 py-4">
+                    <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="{{ path('admin_user_show', {'id': user.id}) }}">voir</a>
+                    <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="{{ path('admin_user_edit', {'id': user.id}) }}">modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="ml-32 pb-10 font-semibold hover:font-bold" href="{{ path('admin_user_new') }}">Ajouter un utilisateur</a>
+{% endblock %}

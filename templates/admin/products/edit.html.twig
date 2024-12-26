@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier Produit{% endblock %}
+
+{% block body %}
+    <h1 class="flex justify-center">Modifier Produit</h1>
+
+    <div class="flex justify-center mt-8">
+        {{ include('admin/products/_form.html.twig', {'button_label': 'Modifier'}) }}
+    </div>
+
+    <a href="{{ path('app_products_index') }}" class="ml-8">retour à la liste</a>
+{% endblock %}

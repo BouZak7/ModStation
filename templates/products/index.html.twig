@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+    <h1 class="flex justify-center mb-8">Liste Produits</h1>
+    <a class="ml-32 font-semibold hover:font-bold" href="{{ path('app_admin') }}" >Retour</a>
+        <div class="grid grid-cols-3 gap-4 p-4">
+        {% for product in products %}
+            <div class=" flex flex-col items-center">
+                <img src="{{ asset(product.image) }}">
+                <p class="font-semibold">{{ product.nom }}</p>
+                <p>{{ product.prix }}</p>
+                <p>
+                    <a href="{{ path('app_products_show', {'id': product.id}) }}">voir</a>
+                    <a href="{{ path('app_products_edit', {'id': product.id}) }}">modifier</a>
+                </p>
+            </div>
+        {% else %}
+            no records found
+        {% endfor %}
+        </div>
+
+    <a class="ml-32 pb-10 font-semibold hover:font-bold" href="{{ path('app_products_new') }}">Ajouter un produit</a>
+{% endblock %}

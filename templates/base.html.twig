@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+    <header class="bg-blue-700 h-20 grid grid-cols-2">
+        <a class="text-xl text-white font-semibold" href="{{ path('app_home') }}">
+            ModStation
+        </a>
+        <nav>
+            <ul class="text-white flex justify-end justify-around">
+                <li>
+                    <a href="{{ path('app_home') }}">Accueil</a>
+                </li>
+                <li>
+                    <a href="exoHTML.html">Modding</a>
+                </li>
+                <li>
+                    <a href="exoHTML.html">Réparation</a>
+                </li>
+                <li>
+                    <a href="apropos.html">À propos</a>
+                </li>
+                <li>
+                    <a href="contact.html">Contact</a>
+                </li>
+                <li>
+                    <a href="#"><img class="profil" src="{{ asset('image/profil.png') }}" ></a>
+                </li>
+                <li>
+                    <a href="#"><img class="cart" src="{{ asset('image/cart.png') }}" ></a>
+                </li>
+            </ul>
+        </nav>
+        {# <form action="" role="search">
+            <label for="recherche">Rechercher</label>
+            <input type="search" name="searchBar" id="recherche" placeholder="Recherche">
+            <input type="submit" value="ok">
+        </form> #}
+    </header>
+        {% block body %}{% endblock %}
+    </body>
+</html>

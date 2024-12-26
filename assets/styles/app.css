@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    @apply h-screen;
+}
+
+img {
+    width: 60%;
+}
+
+h1 {
+    @apply text-4xl;
+}
+
+a{
+    /* @apply hover:font-semibold; */
+}
+
+.profil, .cart {
+    width: 30px;
+}
