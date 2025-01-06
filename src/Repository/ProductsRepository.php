@@ -16,6 +16,51 @@ class ProductsRepository extends ServiceEntityRepository
         parent::__construct($registry, Products::class);
     }
 
+        /**
+        * @return Products[] Returns an array of Products objects
+        */
+        public function findByService($value): array
+        {
+            return $this->createQueryBuilder('p')
+                ->andWhere('p.service = :val')
+                ->setParameter('val', $value)
+                ->orderBy('p.id', 'ASC')
+                ->setMaxResults(12)
+                ->getQuery()
+                ->getResult()
+            ;
+        }
+
+        // /**
+        // * @return Products[] Returns an array of Products objects
+        // */
+        // public function findByCategorie($value): array
+        // {
+        //     return $this->createQueryBuilder('p')
+        //         ->andWhere('p.categorie = :val')
+        //         ->setParameter('val', $value)
+        //         ->orderBy('p.id', 'ASC')
+        //         ->setMaxResults(12)
+        //         ->getQuery()
+        //         ->getResult()
+        //     ;
+        // }
+
+        /**
+        * @return Products[] Returns an array of Products objects
+        */
+        public function findByCategory(string $categoryName): array
+        {
+            return $this->createQueryBuilder('p')
+                ->join('p.categorie', 'c') // Jointure avec la table Category
+                ->andWhere('c.categorie = :categoryName') // Filtre par nom de la catégorie
+                ->setParameter('categoryName', $categoryName)
+                ->orderBy('p.id', 'ASC')
+                ->setMaxResults(12)
+                ->getQuery()
+                ->getResult();
+        }
+
     //    /**
     //     * @return Products[] Returns an array of Products objects
     //     */

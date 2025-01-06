@@ -8,3 +8,10 @@ import './bootstrap.js';
 import './styles/app.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+let profil = document.getElementById("profil")
+
+// profil.addEventListener("click", () => {
+//     console.log('test') 
+//     profil.setAttribute("class", 'hidden')
+// })

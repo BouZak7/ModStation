@@ -18,9 +18,25 @@ final class ProductsController extends AbstractController
     public function index(ProductsRepository $productsRepository): Response
     {
         return $this->render('products/index.html.twig', [
-            'products' => $productsRepository->findAll(),
+            'products' => $productsRepository->findByService(1),
         ]);
     }
+
+    #[Route('/{categorie}', name: 'app_products_category', methods: ['GET'])]
+    public function category(ProductsRepository $productsRepository, $categorie): Response
+    {
+        return $this->render('products/index.html.twig', [
+            'products' => $productsRepository->findByCategory($categorie),
+        ]);
+    }
+
+    // #[Route('/mod', name: 'app_mod_index', methods: ['GET'])]
+    // public function mod(ProductsRepository $productsRepository): Response
+    // {
+    //     return $this->render('products/index.html.twig', [
+    //         'products' => $productsRepository->findByService(1),
+    //     ]);
+    // }
 
     // #[Route('/new', name: 'app_products_new', methods: ['GET', 'POST'])]
     // public function new(Request $request, EntityManagerInterface $entityManager): Response

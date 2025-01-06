@@ -11,9 +11,10 @@ use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
+#[Route('/admin')]
 class AdminController extends AbstractController
 {
-    #[Route('/admin', name: 'app_admin')]
+    #[Route(name: 'app_admin')]
     public function index(): Response
     {
         return $this->render('admin/index.html.twig', [
