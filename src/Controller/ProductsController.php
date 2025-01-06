@@ -26,7 +26,7 @@ final class ProductsController extends AbstractController
     public function category(ProductsRepository $productsRepository, $categorie): Response
     {
         return $this->render('products/index.html.twig', [
-            'products' => $productsRepository->findByCategory($categorie),
+            'products' => $productsRepository->findByCategoryAndService($categorie, 1),
         ]);
     }
 

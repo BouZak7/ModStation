@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Products;
 use App\Form\ProductsType;
+use App\Repository\CategoryRepository;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,7 +27,7 @@ class AdminController extends AbstractController
     public function products(ProductsRepository $productsRepository): Response
     {
         return $this->render('admin/products/index.html.twig', [
-            'products' => $productsRepository->findAll(),
+            'products' => $productsRepository->findByService(1),
         ]);
     }
 
@@ -85,5 +86,21 @@ class AdminController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_products_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/fix', name: 'admin_fix_index', methods: ['GET'])]
+    public function fix(ProductsRepository $productsRepository): Response
+    {
+        return $this->render('admin/products/index.html.twig', [
+            'products' => $productsRepository->findByService(2),
+        ]);
+    }
+
+    #[Route('/category', name: 'admin_category_index', methods: ['GET'])]
+    public function categories(CategoryRepository $categoryRepository): Response
+    {
+        return $this->render('admin/category/index.html.twig', [
+            'categories' => $categoryRepository->findAll(),
+        ]);
     }
 }

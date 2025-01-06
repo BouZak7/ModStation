@@ -61,6 +61,21 @@ class ProductsRepository extends ServiceEntityRepository
                 ->getResult();
         }
 
+        public function findByCategoryAndService(string $categoryName, int $service): array
+        {
+            return $this->createQueryBuilder('p')
+                ->join('p.categorie', 'c') // Jointure avec la table Category
+                ->andWhere('c.categorie = :categoryName') // Filtre par nom de la catégorie
+                ->andWhere('p.service = :service') // Filtre pour service = 2
+                ->setParameter('categoryName', $categoryName)
+                ->setParameter('service', $service)
+                ->orderBy('p.id', 'ASC')
+                ->setMaxResults(12)
+                ->getQuery()
+                ->getResult();
+        }
+
+
     //    /**
     //     * @return Products[] Returns an array of Products objects
     //     */

@@ -1,0 +1,143 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réparation{% endblock %}
+
+{% block body %}
+    <h1 class="flex justify-center mb-8">Réparation</h1>
+    <a class="ml-32 font-semibold hover:font-bold" href="{{ path('app_home') }}" >Retour</a>
+
+        <div class="grid grid-cols-2 gap-4 p-4 m-10">
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: 'ps5'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/manette_ps5.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">Manette ps5</p>
+                <ul>
+                    <li>- Joystick drift</li>
+                    <li>- Boutons</li>
+                    <li>- Pavé tactile</li>
+                    <li>- Batterie</li>
+                </ul>
+            </div>
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: 'ps4'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/manette_ps4.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">Manette ps4</p>
+                <ul>
+                    <li>- Joystick drift</li>
+                    <li>- Boutons</li>
+                    <li>- Pavé tactile</li>
+                    <li>- Batterie</li>
+                </ul>
+            </div>
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: 'ps3'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/manette_ps3.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">Manette ps3</p>
+                <ul>
+                    <li>- Boutons</li>
+                    <li>- Batterie</li>
+                </ul>
+            </div>
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: 'gb'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/gb.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">Gameboy</p>
+                <ul>
+                    <li>- Écran</li>
+                    <li>- Vitre</li>
+                    <li>- Boutons</li>
+                </ul>
+            </div>
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: 'gbp'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/gbp.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">Gameboy Pocket</p>
+                <ul>
+                    <li>- Écran</li>
+                    <li>- Vitre</li>
+                    <li>- Boutons</li>
+                </ul>
+            </div>
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: 'gbc'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/gbc.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">Gameboy Color</p>
+                <ul>
+                    <li>- Écran</li>
+                    <li>- Vitre</li>
+                    <li>- Boutons</li>
+                </ul>
+            </div>
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: 'gba'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/gba.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">Gameboy Advance</p>
+                <ul>
+                    <li>- Écran</li>
+                    <li>- Vitre</li>
+                    <li>- Boutons</li>
+                </ul>
+            </div>
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: 'gbsp'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/gbsp.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">Gameboy Advance SP</p>
+                <ul>
+                    <li>- Écran</li>
+                    <li>- Vitre</li>
+                    <li>- Boutons</li>
+                </ul>
+            </div>
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: 'ndsl'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/ndsl.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">DS Lite</p>
+                <ul>
+                    <li>- Écran</li>
+                    <li>- Boutons</li>
+                </ul>
+            </div>
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: 'ndsi'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/ndsi.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">DSi</p>
+                <ul>
+                    <li>- Écran</li>
+                    <li>- Boutons</li>
+                </ul>
+            </div>
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: '3ds'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/3ds.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">3DS</p>
+                <ul>
+                    <li>- Écran</li>
+                    <li>- Boutons</li>
+                    <li>- Port de charge</li>
+                </ul>
+            </div>
+            <div class=" flex flex-col items-center border border-black">
+                <a href="{{ path('app_fix_category', {categorie: '2ds'}, relative = false)  }}">
+                    <img src="{{ asset('image/fix/2ds.jpg') }}" alt="">
+                </a>
+                <p class=" font-semibold text-xl ">2DS</p>
+                <ul>
+                    <li>- Écran</li>
+                    <li>- Boutons</li>
+                    <li>- Port de charge</li>
+                </ul>
+            </div>
+        </div>
+
+{% endblock %}
