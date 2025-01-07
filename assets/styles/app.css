@@ -14,8 +14,11 @@ h1 {
     @apply text-4xl;
 }
 
-a{
-    /* @apply hover:font-semibold; */
+.produit {
+    display: inline-block; /* S'assure que le lien prend uniquement l'espace nécessaire */
+    padding: 0; /* Supprime les espaces internes */
+    margin: 0; /* Supprime les marges externes */
+    text-decoration: none; /* Supprime les soulignements si nécessaire */
 }
 
 .profil, .cart {

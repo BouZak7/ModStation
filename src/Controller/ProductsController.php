@@ -22,11 +22,19 @@ final class ProductsController extends AbstractController
         ]);
     }
 
-    #[Route('/{categorie}', name: 'app_products_category', methods: ['GET'])]
+    #[Route('/{categorie}', name: 'app_products_category', methods: ['GET'], requirements: ['categorie' => '[a-zA-Z]+[a-zA-Z0-9-]*'])]
     public function category(ProductsRepository $productsRepository, $categorie): Response
     {
         return $this->render('products/index.html.twig', [
             'products' => $productsRepository->findByCategoryAndService($categorie, 1),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_products_show', methods: ['GET'], requirements: ['id' => '\d+'])]
+    public function show(Products $product): Response
+    {
+        return $this->render('products/show.html.twig', [
+            'product' => $product,
         ]);
     }
 
@@ -58,13 +66,6 @@ final class ProductsController extends AbstractController
     //     ]);
     // }
 
-    #[Route('/{id}', name: 'app_products_show', methods: ['GET'])]
-    public function show(Products $product): Response
-    {
-        return $this->render('products/show.html.twig', [
-            'product' => $product,
-        ]);
-    }
 
     // #[Route('/{id}/edit', name: 'app_products_edit', methods: ['GET', 'POST'])]
     // public function edit(Request $request, Products $product, EntityManagerInterface $entityManager): Response

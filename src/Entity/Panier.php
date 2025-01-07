@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\PanierRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PanierRepository::class)]
@@ -18,6 +21,20 @@ class Panier
 
     #[ORM\OneToOne(mappedBy: 'panier', cascade: ['persist', 'remove'])]
     private ?User $user = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
+    private ?string $prix_unitaire = null;
+
+    /**
+     * @var Collection<int, Products>
+     */
+    #[ORM\ManyToMany(targetEntity: Products::class, inversedBy: 'paniers')]
+    private Collection $product;
+
+    public function __construct()
+    {
+        $this->product = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -54,6 +71,42 @@ class Panier
         }
 
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPrixUnitaire(): ?string
+    {
+        return $this->prix_unitaire;
+    }
+
+    public function setPrixUnitaire(string $prix_unitaire): static
+    {
+        $this->prix_unitaire = $prix_unitaire;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Products>
+     */
+    public function getProduct(): Collection
+    {
+        return $this->product;
+    }
+
+    public function addProduct(Products $product): static
+    {
+        if (!$this->product->contains($product)) {
+            $this->product->add($product);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Products $product): static
+    {
+        $this->product->removeElement($product);
 
         return $this;
     }

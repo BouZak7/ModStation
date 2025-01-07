@@ -31,8 +31,4 @@
     </table>
 
     <a href="{{ path('app_products_index') }}">retour à la liste</a>
-
-    <a href="{{ path('app_products_edit', {'id': product.id}) }}">modifier</a>
-
-    {{ include('admin/products/_delete_form.html.twig') }}
 {% endblock %}

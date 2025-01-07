@@ -42,9 +42,16 @@ class Products
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    /**
+     * @var Collection<int, Panier>
+     */
+    #[ORM\ManyToMany(targetEntity: Panier::class, mappedBy: 'product')]
+    private Collection $paniers;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->paniers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,6 +154,33 @@ class Products
     public function setImage(string $image): static
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Panier>
+     */
+    public function getPaniers(): Collection
+    {
+        return $this->paniers;
+    }
+
+    public function addPanier(Panier $panier): static
+    {
+        if (!$this->paniers->contains($panier)) {
+            $this->paniers->add($panier);
+            $panier->addProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanier(Panier $panier): static
+    {
+        if ($this->paniers->removeElement($panier)) {
+            $panier->removeProduct($this);
+        }
 
         return $this;
     }

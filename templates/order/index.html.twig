@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commandes{% endblock %}
+
+{% block body %}
+    <h1 class="flex justify-center mb-8">Mes Commandes</h1>
+
+    <table class="w-full text-sm text-left rtl:text-right text-gray-900 m-8">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3">Produit</th>
+                <th scope="col" class="px-6 py-3">Prix</th>
+                <th scope="col" class="px-6 py-3">Quantité</th>
+                <th scope="col" class="px-6 py-3">Total</th>
+                <th scope="col" class="px-6 py-3"></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande in order %}
+            <tr class="odd:bg-white even:bg-gray-50 border-b">
+                <td class="px-6 py-4">{{ element.product.nom }}</td>
+                <td class="px-6 py-4">{{ element.product.prix }} €</td>
+                <td class="px-9 py-4">
+                    <a class="font-medium" href="{{path('app_panier_remove', {id: element.product.id}, relative = false)}}">-</a>
+                    {{ element.quantite }}
+                    <a class="font-medium" href="{{path('app_panier_add', {id: element.product.id}, relative = false)}}">+</a>
+                </td>
+                <td class="px-6 py-4">{{ element.product.prix * element.quantite }} €</td>
+                <td class="px-6 py-4">
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Vous n'avez aucune commande</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot >
+            <tr>
+                <td colspan="3" class="px-6 py-3 text-xs font-bold text-gray-700 uppercase">Total</td>
+                <td colspan="2" class="px-6 py-4">{{ total }} €</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <a class="text-white text-center pt-3 ml-32 pb-10 font-semibold hover:font-bold hover:bg-amber-500 bg-amber-400 block h-6 w-20 rounded-md border-amber-500" href="#">Payer</a>
+{% endblock %}
