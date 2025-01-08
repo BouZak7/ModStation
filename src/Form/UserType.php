@@ -18,15 +18,18 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('roles', ChoiceType::class, [
+            ->add('password', PasswordType::class);
+
+        if ($options['is_admin']) {
+            $builder->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Admin' => 'ROLE_ADMIN',
                     'User' => 'ROLE_USER',
                 ],
                 'multiple' => true,
                 'expanded' => true, // Checkbox pour chaque rôle
-            ])
-            ->add('password', PasswordType::class)
+            ]);
+        }
             // ->add('isVerified')
             // ->add('panier', EntityType::class, [
             //     'class' => Panier::class,
@@ -39,6 +42,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'is_admin' => false,
         ]);
     }
 }

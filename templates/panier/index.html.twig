@@ -6,6 +6,7 @@
     <h1 class="flex justify-center mb-8">Panier</h1>
     <a class="ml-32 font-semibold hover:font-bold" href="{{ path('app_products_index') }}" >Retour</a>
 
+    {% if data is not empty %}
     <table class="w-full text-sm text-left rtl:text-right text-gray-900 m-8">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
@@ -34,10 +35,6 @@
                     </a>
                 </td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">Votre panier est vide</td>
-            </tr>
         {% endfor %}
         </tbody>
         <tfoot >
@@ -47,6 +44,11 @@
             </tr>
         </tfoot>
     </table>
+    {% else %}
+        <p class="flex justify-center text-xl">Votre panier est vide</p>
+    {% endif %}
 
-    <a class="text-white text-center pt-3 ml-32 pb-10 font-semibold hover:font-bold hover:bg-amber-500 bg-amber-400 block h-6 w-20 rounded-md border-amber-500" href="#">Payer</a>
+    {% if data is not empty %}
+        <a class="text-white text-center pt-3 ml-32 pb-10 font-semibold hover:font-bold hover:bg-amber-500 bg-amber-400 block h-6 w-20 rounded-md border-amber-500" href="#">Payer</a>
+    {% endif %}
 {% endblock %}

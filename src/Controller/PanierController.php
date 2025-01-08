@@ -31,6 +31,8 @@ class PanierController extends AbstractController
             $total += $product->getPrix() * $quantite;
         }
 
+        // dd($data);
+
         return $this->render('panier/index.html.twig', compact('data','total'));
     }
 

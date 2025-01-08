@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <h1 class="flex justify-center">Modifier Utilisateur</h1>
+
+    <div class="flex justify-center mt-8">
+        {{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
+    </div>
+
+    <a class="ml-8" href="{{ path('user_index') }}">Retour</a>
+{% endblock %}
