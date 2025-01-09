@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products{% endblock %}
+
+{% block body %}
+    <h1>Products</h1>
+
+    <table class="table">
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <th>Nom</th>
+                <td>{{ product.product.nom }}</td>
+            </tr>
+            {# <tr>
+                <th>Description</th>
+                <td>{{ product.product.description }}</td>
+            </tr> #}
+            <tr>
+                <th>Prix</th>
+                <td>{{ product.product.prix }}</td>
+            </tr>
+            <tr>
+                <th></th>
+                <td><img src="{{ asset(product.product.image) }}" class="w-1/3"></td>
+            </tr>
+            <tr>
+                <th>Quantité</th>
+                <td>{{ product.qte }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -29,8 +29,6 @@ class PanierController extends AbstractController
             $total += $product->getPrix() * $quantite;
         }
 
-        // dd($data);
-
         return $this->render('panier/index.html.twig', compact('data','total'));
     }
 
@@ -57,7 +55,7 @@ class PanierController extends AbstractController
         $session->set('panier', $panier);
         // dd($session);
 
-        return $this->redirectToRoute('app_panier');
+        return $this->redirectToRoute('app_products_index');
     }
 
     #[Route('/remove/{id}', name: 'app_panier_remove', methods: ['GET', 'POST'])]
@@ -99,6 +97,14 @@ class PanierController extends AbstractController
         }
 
         $session->set('panier', $panier);
+
+        return $this->redirectToRoute('app_panier');
+    }
+
+    #[Route('/empty', name: 'app_panier_empty', methods: ['GET', 'POST'])]
+    public function empty(Session $session)
+    {
+        $session->remove('panier');
 
         return $this->redirectToRoute('app_panier');
     }

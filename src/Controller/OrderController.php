@@ -3,9 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use App\Entity\Products;
+use App\Entity\OrderProduct;
 use App\Entity\User;
 use DateTime;
 use App\Repository\ProductsRepository;
+use App\Repository\OrderRepository;
+use App\Repository\OrderProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,10 +20,52 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class OrderController extends AbstractController
 {
     #[Route(name: 'app_order')]
-    public function index(): Response
+    public function index(ProductsRepository $productsRepository, OrderRepository $orderRepository, OrderProductRepository $orderproductRepository): Response
     {
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw $this->createNotFoundException('Utilisateur non trouvé.');
+        }
+
+        $orders = $orderRepository->findBy(['user' => $user->getId()]);
+        // dd($orders);
+        
+        $orderP = $orders[3]->getOrderProducts();
+        // dd($orderP);
+        
+        // $products = $productsRepository->findby(['id' => $orderP->getProduct()]);
+        // dd($products);
+        
+        // $product = $productsRepository->find();
+
         return $this->render('order/index.html.twig', [
-            'controller_name' => 'OrderController',
+            // 'products' => $productsRepository->findBy(1),
+            'commande' => $orders,
+            // 'orderproduct' => $orderproductRepository->findByService(1),
+        ]);
+    }
+
+    #[Route('/{numero}', name: 'app_order_show', methods: ['GET'])]
+    public function show(/*Products $product, OrderProduct $orderproduct,*/ $numero, OrderRepository $orderRepository): Response
+    {
+        $order = $orderRepository->findBy(['numero' => $numero]);
+        // dd($order);
+        
+        $orderP = $order[0]->getOrderProducts();
+        // dd($orderP[0]->getQuantite());
+
+        $products = [];
+        $qte = [];
+        
+        foreach($orderP as $orderP){
+            $products[] = ['product' => $orderP->getProduct(),
+                'qte' => $orderP->getQuantite()
+            ];
+        }
+        // dd($products);
+        return $this->render('order/show.html.twig', [
+            'products' => $products,
         ]);
     }
 
@@ -38,32 +84,31 @@ class OrderController extends AbstractController
         $total = 0;
 
         $order = new Order();
-
+        
         foreach($panier as $id => $quantite){
+            $orderP = new OrderProduct();
             $product = $productsRepository->find($id);
-
-            $data[] = [
-                'product' => $product,
-                'quantite' => $quantite
-            ];
+            
             $total += $product->getPrix() * $quantite;
-            for($i=0; $i<$quantite; $i++ ){
-                $order->addProduit($product);
-            }
+            
+            $orderP->setProduct($product);
+            $orderP->setQuantite($quantite);
+            $orderP->setCommande($order);
+            $entityManager->persist($orderP);
         }
-
+        
         $order->setNumero($orderNumber);
-        $order->setPrix($total);
         $order->setDateCommande($date);
+        $order->setPrix($total);
         $order->setStatut('en cours');
         $order->setUser($user);
-
-        // dd($order);
-
+        
 
         $entityManager->persist($order);
         $entityManager->flush();
+        
+        $session->remove('panier');
 
-        return $this->redirectToRoute('app_order', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_panier', [], Response::HTTP_SEE_OTHER);
     }
 }
