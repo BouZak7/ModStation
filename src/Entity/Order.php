@@ -34,15 +34,19 @@ class Order
     private ?User $user = null;
 
     /**
-     * @var Collection<int, Products>
+     * @var Collection<int, OrderProduct>
      */
-    #[ORM\ManyToMany(targetEntity: Products::class, inversedBy: 'orders')]
-    private Collection $produit;
+    #[ORM\OneToMany(targetEntity: OrderProduct::class, mappedBy: 'commande')]
+    private Collection $orderProducts;
 
     public function __construct()
     {
-        $this->produit = new ArrayCollection();
+        $this->orderProducts = new ArrayCollection();
     }
+
+    // public function __construct()
+    // {
+    // }
 
     public function getId(): ?int
     {
@@ -110,25 +114,31 @@ class Order
     }
 
     /**
-     * @return Collection<int, Products>
+     * @return Collection<int, OrderProduct>
      */
-    public function getProduit(): Collection
+    public function getOrderProducts(): Collection
     {
-        return $this->produit;
+        return $this->orderProducts;
     }
 
-    public function addProduit(Products $produit): static
+    public function addOrderProduct(OrderProduct $orderProduct): static
     {
-        // if (!$this->produit->contains($produit)) {
-            $this->produit->add($produit);
-        // }
+        if (!$this->orderProducts->contains($orderProduct)) {
+            $this->orderProducts->add($orderProduct);
+            $orderProduct->setCommande($this);
+        }
 
         return $this;
     }
 
-    public function removeProduit(Products $produit): static
+    public function removeOrderProduct(OrderProduct $orderProduct): static
     {
-        $this->produit->removeElement($produit);
+        if ($this->orderProducts->removeElement($orderProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($orderProduct->getCommande() === $this) {
+                $orderProduct->setCommande(null);
+            }
+        }
 
         return $this;
     }
