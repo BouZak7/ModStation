@@ -48,6 +48,9 @@ class Products
     #[ORM\ManyToMany(targetEntity: Panier::class, mappedBy: 'product')]
     private Collection $paniers;
 
+    #[ORM\Column]
+    private ?int $inventaire = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -181,6 +184,18 @@ class Products
         if ($this->paniers->removeElement($panier)) {
             $panier->removeProduct($this);
         }
+
+        return $this;
+    }
+
+    public function getInventaire(): ?int
+    {
+        return $this->inventaire;
+    }
+
+    public function setInventaire(int $inventaire): static
+    {
+        $this->inventaire = $inventaire;
 
         return $this;
     }

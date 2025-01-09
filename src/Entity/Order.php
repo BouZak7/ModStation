@@ -119,9 +119,9 @@ class Order
 
     public function addProduit(Products $produit): static
     {
-        if (!$this->produit->contains($produit)) {
+        // if (!$this->produit->contains($produit)) {
             $this->produit->add($produit);
-        }
+        // }
 
         return $this;
     }
